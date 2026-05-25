@@ -1,5 +1,5 @@
 from flask import Flask , jsonify, request
-
+from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 from database import init_db
 from routes.products import products
@@ -13,7 +13,8 @@ from routes.products import products
 
 init_db()
 
-app=Flask(__name__)
+app=Flask(__name__, static_folder = "dist", static_url_path="")
+CORS(app, origins="*")
 
 app.register_blueprint(products, url_prefix="/products")
 
